@@ -5,6 +5,7 @@ using UnityEngine;
 public class DraftMode : MonoBehaviour {
 
     public bool BL_Drafting;
+    Player playerSettings;
 
     // Use this for initialization
     void Start () {

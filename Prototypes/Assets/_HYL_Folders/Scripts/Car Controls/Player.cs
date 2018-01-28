@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class Player : MonoBehaviour {
 
+    public Car settings;
+
     public enum ShiftState
     {
         None,
