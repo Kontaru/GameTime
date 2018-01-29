@@ -4,4 +4,22 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/__GameScenes/Menu.unity
+    guid: 880874548c9e71846ada8e35c66667d0
+  - enabled: 1
+    path: Assets/__GameScenes/Forest-Track.unity
+    guid: 86e050f20fc48704696265c07a1105ba
+  - enabled: 1
+    path: Assets/__GameScenes/Beach-Track.unity
+    guid: 683ae3a802a34bd4e9d459a77b189f43
+  - enabled: 1
+    path: Assets/__GameScenes/City-Track.unity
+    guid: 3c18a615092062148adfb0e9b41bff25
+  - enabled: 1
+    path: Assets/__GameScenes/Mountain-Track.unity
+    guid: 7a2751005631ce047a7d79ea282e9775
+  - enabled: 1
+    path: Assets/__GameScenes/EndlessMode.unity
+    guid: 30d13b5c2dc28c644a449304998f66c2
