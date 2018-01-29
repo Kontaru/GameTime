@@ -15,15 +15,15 @@ MonoBehaviour:
   model: {fileID: 100000, guid: cbf862621f72f1f47a5ac9cc7dfdaae6, type: 3}
   gears:
   - name: Gear 1
-    speedLimit: 40
+    speedLimit: 25
   - name: Gear 2
-    speedLimit: 0
+    speedLimit: 47
   - name: Gear 3
-    speedLimit: 0
+    speedLimit: 68
   - name: Gear 4
-    speedLimit: 0
+    speedLimit: 86
   - name: Gear 5
-    speedLimit: 0
-  acceleration: 0
-  topSpeed: 230
+    speedLimit: 100
+  acceleration: 3
+  topSpeed: 125
   shiftTime: 2

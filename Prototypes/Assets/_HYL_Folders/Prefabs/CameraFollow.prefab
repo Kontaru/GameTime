@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smoothSpeed: 2
-  playerfollowSmoothSpeed: 5
+  playerfollowSmoothSpeed: 20
 --- !u!124 &124674923098579204
 Behaviour:
   m_ObjectHideFlags: 1

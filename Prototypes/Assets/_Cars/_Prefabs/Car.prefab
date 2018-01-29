@@ -24,6 +24,10 @@ GameObject:
   - component: {fileID: 65518487194703670}
   - component: {fileID: 114753927730980956}
   - component: {fileID: 114323813212195358}
+  - component: {fileID: 114576102639848286}
+  - component: {fileID: 114305042013873276}
+  - component: {fileID: 114884343043971290}
+  - component: {fileID: 114822378045422378}
   m_Layer: 0
   m_Name: Car
   m_TagString: Untagged
@@ -422,6 +426,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114305042013873276
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1078558080701350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6756ebe74ffe2d3488028f758539476f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BL_Drifting: 1
 --- !u!114 &114323813212195358
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -433,8 +449,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cf231c6322f321449361cd3d6a296d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  settings: {fileID: 11400000, guid: fb38c0d56a6710b4bbc08d6a5b12be9a, type: 2}
   State: 1
   destination: {fileID: 0}
+--- !u!114 &114576102639848286
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1078558080701350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62a615de666b54546ad56088701e9eec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BL_Cruising: 1
 --- !u!114 &114753927730980956
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -446,6 +475,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17f29fe4cfab4e04187e80708165232d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114822378045422378
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1078558080701350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 408ec8f529aa5694fad0b3fffde9d526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: {fileID: 0}
+--- !u!114 &114884343043971290
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1078558080701350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac24e1ed17edcf74486d7bcbf1856abd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BL_Drafting: 1
 --- !u!195 &195190677139558662
 NavMeshAgent:
   m_ObjectHideFlags: 1
@@ -456,9 +509,9 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.2
   m_Speed: 12
-  m_Acceleration: 8
+  m_Acceleration: 110
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 990
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
