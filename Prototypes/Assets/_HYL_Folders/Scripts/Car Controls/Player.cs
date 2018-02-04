@@ -32,8 +32,6 @@ public class Player : MonoBehaviour {
 
     public GameObject destination;
     public static NavMeshAgent nav_agent;
-    DraftMode Drafting;
-    DriftMode Drifting;
 
     public static float MPH;
     public static float KPH;
@@ -44,9 +42,6 @@ public class Player : MonoBehaviour {
     {
         nav_agent = GetComponent<NavMeshAgent>();
 
-        Drafting = GetComponent<DraftMode>();
-        Drifting = GetComponent<DriftMode>();
-
         CurrentGear = Gear.One;
         nav_agent.speed = 0;
     }
@@ -56,67 +51,51 @@ public class Player : MonoBehaviour {
     {
         nav_agent.destination = destination.transform.position;
 
-        SetSpeedLimit();
+        GearShiftSpeedLimit();
         Accelerate();
 
-        if (State == ShiftState.Drag)
-        {
-            Drifting.Off();
-            Drafting.On();
-        }else if (State == ShiftState.Drift)
-        {
-            Drifting.On();
-            Drafting.Off();
-        }
-        else if (State == ShiftState.Cruising)
-        {
-            Drifting.Off();
-            Drafting.Off();
-            Cruising();
-        }
-        else if (State == ShiftState.Crashed)
-        {
-            Drifting.Off();
-            Drafting.Off();
-        }
+        if (State == ShiftState.Drag) Drag();
+        else if (State == ShiftState.Drift) Drift();
+        else if (State == ShiftState.Cruising) Cruising();
+        else if (State == ShiftState.Crashed) SpinOut();
 
     }
 
-    void SetSpeedLimit()
+    void GearShiftSpeedLimit()
     {
-        if (State == ShiftState.Drag)
+        if (CurrentGear == Gear.Six)
         {
-            if (CurrentGear == Gear.Six)
-            {
-                BL_speedLimit = car_Settings.gears[5].speedLimit;
-            }
-            else if (CurrentGear == Gear.Five)
-            {
-                BL_speedLimit = car_Settings.gears[4].speedLimit;
-            }
-            else if (CurrentGear == Gear.Four)
-            {
-                BL_speedLimit = car_Settings.gears[3].speedLimit;
-            }
-            else if (CurrentGear == Gear.Three)
-            {
-                BL_speedLimit = car_Settings.gears[2].speedLimit;
-            }
-            else if (CurrentGear == Gear.Two)
-            {
-                BL_speedLimit = car_Settings.gears[1].speedLimit;
-            }
-            else if (CurrentGear == Gear.One)
-            {
-                BL_speedLimit = car_Settings.gears[0].speedLimit;
-            }
+            BL_speedLimit = car_Settings.gears[5].speedLimit;
+        }
+        else if (CurrentGear == Gear.Five)
+        {
+            BL_speedLimit = car_Settings.gears[4].speedLimit;
+        }
+        else if (CurrentGear == Gear.Four)
+        {
+            BL_speedLimit = car_Settings.gears[3].speedLimit;
+        }
+        else if (CurrentGear == Gear.Three)
+        {
+            BL_speedLimit = car_Settings.gears[2].speedLimit;
+        }
+        else if (CurrentGear == Gear.Two)
+        {
+            BL_speedLimit = car_Settings.gears[1].speedLimit;
+        }
+        else if (CurrentGear == Gear.One)
+        {
+            BL_speedLimit = car_Settings.gears[0].speedLimit;
         }
     }
 
     void Accelerate()
     {
         if (MPH > BL_speedLimit)
-            nav_agent.speed = Random.Range(BL_speedLimit / 2.237f, BL_speedLimit / 2.237f + 2.0f);
+        {
+            float cur_speedLimit = Random.Range(BL_speedLimit / 2.237f, (BL_speedLimit + 2.0f) / 2.237f);
+            nav_agent.speed = Mathf.Lerp(nav_agent.speed, cur_speedLimit, Time.deltaTime);
+        }
         else
             nav_agent.speed += car_Settings.acceleration * Time.deltaTime;
 
@@ -124,22 +103,46 @@ public class Player : MonoBehaviour {
         KPH = nav_agent.speed * 3.6f;
     }
 
+    void Drag()
+    {
+        GearShiftSpeedLimit();
+        Accelerate();
+    }
+
+    void Drift()
+    {
+
+    }
+
     void Cruising()
     {
-        
+        BL_speedLimit = MPH;
+        Accelerate();
     }
 
-    void ShiftUp()
+    void SpinOut()
     {
-        int vGear = (int)CurrentGear;
-        vGear += 1;
-        CurrentGear = (Gear)vGear;
+
     }
 
-    void ShiftDown()
+    //Used by buttons
+    public void ShiftUp()
     {
-        int vGear = (int)CurrentGear;
-        vGear -= 1;
-        CurrentGear = (Gear)vGear;
+        if (State != ShiftState.Drag) return;
+        {
+            int vGear = (int)CurrentGear;
+            vGear += 1;
+            CurrentGear = (Gear)vGear;
+        }
+    }
+
+    public void ShiftDown()
+    {
+        if (State != ShiftState.Drag) return;
+        {
+            int vGear = (int)CurrentGear;
+            vGear -= 1;
+            CurrentGear = (Gear)vGear;
+        }
     }
 }

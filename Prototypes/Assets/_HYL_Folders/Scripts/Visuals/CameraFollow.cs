@@ -11,11 +11,18 @@ public class CameraFollow : MonoBehaviour {
     //Camera follow speeds - camera lerps between values for a more cinematic look!
     public float smoothSpeed = 2f;
     public float playerfollowSmoothSpeed = 10f;
-    float speed = 1;
+    float FL_folSpeed = 1;
+
+    //Camera rotate speeds - Camera will whip back and forth smoothly to give the feeling of momentum
+    public float rotateSpeed;
+    public float playerfollowRotateSpeed;
+    [SerializeField]
+    float FL_rotSpeed = 1;
 
     private void Start()
     {
-        speed = smoothSpeed;
+        FL_folSpeed = smoothSpeed;
+        FL_rotSpeed = rotateSpeed;
     }
 
     // Use this for initialization
@@ -27,14 +34,11 @@ public class CameraFollow : MonoBehaviour {
             Follow(otherLook);
             if (Vector3.Distance(transform.position, otherLook.transform.position) < 1.0f)
                 StartCoroutine(StopLooking(otherLook));
-
-            transform.rotation = otherLook.transform.rotation;
         }
         //Otherwise if the player ref is stated, do the follow
         else if (PlayerRef != null)
         {
             Follow(PlayerRef);
-            transform.rotation = PlayerRef.transform.rotation;
         }
 
 
@@ -43,19 +47,21 @@ public class CameraFollow : MonoBehaviour {
     //Parents an object to another thing
     void Follow(GameObject parentGo)
     {
+        //Position
         if (Vector3.Distance(transform.position, parentGo.transform.position) < 10.0f)
-            speed = Mathf.Lerp(speed, playerfollowSmoothSpeed, Time.deltaTime);
+            FL_folSpeed = Mathf.Lerp(FL_folSpeed, playerfollowSmoothSpeed, Time.deltaTime);
         else
-            speed = Mathf.Lerp(speed, smoothSpeed, Time.deltaTime);
+            FL_folSpeed = Mathf.Lerp(FL_folSpeed, smoothSpeed, Time.deltaTime);
 
-        /*
-        if (Mathf.DeltaAngle(transform.rotation.y, parentGo.transform.rotation.y) > 10.0f)
-            speed = Mathf.Lerp(speed, playerfollowSmoothSpeed, Time.deltaTime);
+        transform.position = Vector3.Lerp(transform.position, parentGo.transform.position, FL_folSpeed * Time.deltaTime);
+
+        //Rotation
+        if (Quaternion.Angle(transform.rotation, parentGo.transform.rotation) < 1.0f)
+            FL_rotSpeed = Mathf.Lerp(FL_rotSpeed, playerfollowRotateSpeed, Time.deltaTime);
         else
-            speed = Mathf.Lerp(speed, smoothSpeed, Time.deltaTime);
-        //Sets the position of this gameobject to the "parent"
-        transform.rotation*/
-        transform.position = Vector3.Lerp(transform.position, parentGo.transform.position, speed * Time.deltaTime);
+            FL_rotSpeed = Mathf.Lerp(FL_rotSpeed, rotateSpeed, Time.deltaTime);
+
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, parentGo.transform.rotation, FL_folSpeed * Time.deltaTime);
     }
 
     //After a few seconds, make the thing we're looking at = null, which should stop the camera from ever tracking this item.

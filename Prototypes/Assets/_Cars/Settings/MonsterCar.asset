@@ -24,6 +24,8 @@ MonoBehaviour:
     speedLimit: 86
   - name: Gear 5
     speedLimit: 100
+  - name: Gear 6
+    speedLimit: 125
   acceleration: 3
   topSpeed: 125
   shiftTime: 2

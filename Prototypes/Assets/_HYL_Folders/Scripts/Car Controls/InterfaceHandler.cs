@@ -16,6 +16,6 @@ public class InterfaceHandler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Speed.text = string.Format("" + Player.MPH);
+        Speed.text = string.Format("" + Mathf.Round(Player.MPH));
 	}
 }
